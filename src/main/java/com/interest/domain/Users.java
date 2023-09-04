@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class) // activate auditing
 @Entity
-public class Users {
+public class Users extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,10 +26,6 @@ public class Users {
 
     @Column(name = "user_name")
     private String userName;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
     @Builder
     public Users(String email, String password, String userName) {
