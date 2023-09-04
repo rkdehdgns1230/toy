@@ -32,5 +32,9 @@ class PostRepositoryTest {
         assertThat(findPost.getTitle()).isEqualTo(post.getTitle());
         assertThat(findPost.getContent()).isEqualTo(post.getContent());
         assertThat(findPost.getPassword()).isEqualTo(post.getPassword());
+
+        assertThat(findPost.getId()).isNotNull();
+        assertThat(findPost.getCreatedAt()).isNotNull();
+        assertThat(findPost.getLastModifiedAt()).isNotNull();
     }
 }

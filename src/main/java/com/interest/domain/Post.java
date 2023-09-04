@@ -26,8 +26,11 @@ public class Post {
     private String content;
 
     @CreatedDate
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
+
     @LastModifiedDate
+    @Column(name = "last_modified_at")
     private LocalDateTime lastModifiedAt;
 
     @Column(name = "password")
