@@ -2,6 +2,7 @@ package com.interest.service;
 
 import com.interest.domain.Post;
 import com.interest.dto.PostCreateRequestDto;
+import com.interest.dto.PostUpdateRequestDto;
 import com.interest.exception.CustomException;
 import com.interest.exception.ExceptionMessage;
 import com.interest.repository.PostRepository;
@@ -18,7 +19,7 @@ public class PostServiceImpl implements PostService{
     @Override
     @Transactional
     public Post save(PostCreateRequestDto requestDto) {
-        validate(requestDto);
+        validate(requestDto.getTitle(), requestDto.getContent());
 
         return postRepository.save(Post.builder()
                 .title(requestDto.getTitle())
@@ -27,12 +28,15 @@ public class PostServiceImpl implements PostService{
                 .build());
     }
 
-    private void validate(PostCreateRequestDto requestDto){
-        if(requestDto.getTitle().length() >= 10){
-            throw new CustomException(ExceptionMessage.POST_TITLE_LENGTH_TOO_LONG);
-        }
-        if(requestDto.getContent().length() >= 50){
-            throw new CustomException(ExceptionMessage.POST_CONTENT_LENGTH_TOO_LONG);
-        }
+    @Override
+    public Post update(PostUpdateRequestDto requestDto) {
+        validate(requestDto.getTitle(), requestDto.getContent());
+
+        Post post = postRepository.findById(requestDto.getId())
+                .orElseThrow(() -> new CustomException(ExceptionMessage.POST_ID_INVALID));
+
+        post.update()
     }
+
+
 }

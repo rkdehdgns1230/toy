@@ -1,5 +1,8 @@
 package com.interest.domain;
 
+import com.interest.dto.PostUpdateRequestDto;
+import com.interest.exception.CustomException;
+import com.interest.exception.ExceptionMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,8 +39,25 @@ public class Post extends BaseEntity {
         this.password = password;
     }
 
-    public void update(String title, String content){
-        this.title = title;
-        this.content = content;
+    public void update(PostUpdateRequestDto requestDto){
+        validatePassword(requestDto.getPassword());
+        validateTitleAndContent(requestDto.getTitle(), requestDto.getContent());
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+    }
+
+    private void validateTitleAndContent(String title, String content){
+        if(title.length() >= 10){
+            throw new CustomException(ExceptionMessage.POST_TITLE_LENGTH_TOO_LONG);
+        }
+        if(content.length() >= 50){
+            throw new CustomException(ExceptionMessage.POST_CONTENT_LENGTH_TOO_LONG);
+        }
+    }
+
+    private void validatePassword(String password){
+        if(!this.password.equals(password)){
+            throw new CustomException(ExceptionMessage.POST_PASSWORD_INVALID);
+        }
     }
 }
