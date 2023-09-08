@@ -18,9 +18,7 @@ public class PostServiceImpl implements PostService{
 
     @Override
     @Transactional
-    public Post save(PostCreateRequestDto requestDto) {
-        validate(requestDto.getTitle(), requestDto.getContent());
-
+    public Post save(PostCreateRequestDto requestDto) { //TODO: ResponseDto로 반환하도록 변경
         return postRepository.save(Post.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
@@ -29,13 +27,14 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Post update(PostUpdateRequestDto requestDto) {
-        validate(requestDto.getTitle(), requestDto.getContent());
+    @Transactional
+    public Post update(PostUpdateRequestDto requestDto) { //TODO: ResponseDto로 반환하도록 변경
 
         Post post = postRepository.findById(requestDto.getId())
                 .orElseThrow(() -> new CustomException(ExceptionMessage.POST_ID_INVALID));
 
-        post.update()
+        post.update(requestDto);
+        return post;
     }
 
 

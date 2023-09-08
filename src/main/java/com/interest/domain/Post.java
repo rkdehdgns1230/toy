@@ -33,6 +33,7 @@ public class Post extends BaseEntity {
 
     @Builder
     public Post(Long id, String title, String content, String password) {
+        validateTitleAndContent(title, content);
         this.id = id;
         this.title = title;
         this.content = content;
@@ -47,7 +48,7 @@ public class Post extends BaseEntity {
     }
 
     private void validateTitleAndContent(String title, String content){
-        if(title.length() >= 10){
+        if(title.length() >= 20){
             throw new CustomException(ExceptionMessage.POST_TITLE_LENGTH_TOO_LONG);
         }
         if(content.length() >= 50){
