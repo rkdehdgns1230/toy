@@ -7,4 +7,6 @@ import com.interest.dto.PostUpdateRequestDto;
 public interface PostService {
     Post save(PostCreateRequestDto requestDto);
     Post update(PostUpdateRequestDto requestDto);
+
+    Post findById(Long id);
 }

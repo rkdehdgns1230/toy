@@ -29,13 +29,16 @@ public class PostServiceImpl implements PostService{
     @Override
     @Transactional
     public Post update(PostUpdateRequestDto requestDto) { //TODO: ResponseDto로 반환하도록 변경
-
-        Post post = postRepository.findById(requestDto.getId())
-                .orElseThrow(() -> new CustomException(ExceptionMessage.POST_ID_INVALID));
+        Post post = findById(requestDto.getId());
 
         post.update(requestDto);
         return post;
     }
 
-
+    @Override
+    public Post findById(Long id) {
+        return postRepository.findById(id).orElseThrow(
+                () -> new CustomException(ExceptionMessage.POST_ID_INVALID)
+        );
+    }
 }

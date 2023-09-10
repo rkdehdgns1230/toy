@@ -2,6 +2,7 @@ package com.interest.service;
 
 import com.interest.domain.Post;
 import com.interest.dto.PostCreateRequestDto;
+import com.interest.dto.PostUpdateRequestDto;
 import com.interest.exception.CustomException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -52,5 +53,29 @@ class PostServiceImplTest {
         //when
         //then
         assertThrows(CustomException.class, () -> postService.save(requestDto));
+    }
+
+    @Test
+    void post_업데이트_성공(){
+        //given
+        final String UPDATE_TITLE = "update title";
+        PostCreateRequestDto requestDto = new PostCreateRequestDto(
+                UPDATE_TITLE,
+                TEST_CONTENT,
+                TEST_PASSWORD
+        );
+        Post post = postService.save(requestDto);
+
+        //when
+        post.update(new PostUpdateRequestDto(
+                post.getId(),
+                UPDATE_TITLE,
+                requestDto.getContent(),
+                requestDto.getPassword()
+        ));
+        Post findPost = postService.findById(post.getId());
+
+        //then
+        assertThat(findPost.getTitle()).isEqualTo(UPDATE_TITLE);
     }
 }
