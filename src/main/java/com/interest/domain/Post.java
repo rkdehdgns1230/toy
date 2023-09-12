@@ -6,9 +6,6 @@ import com.interest.exception.ExceptionMessage;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@EntityListeners(AuditingEntityListener.class) // activate auditing
 public class Post extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,16 +24,25 @@ public class Post extends BaseEntity {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "view_count")
+    private Long viewCount;
+
     @Column(name = "password")
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private Users users;
+
     @Builder
-    public Post(Long id, String title, String content, String password) {
+    public Post(Long id, String title, String content, String password, Users users) {
         validateTitleAndContent(title, content);
         this.id = id;
         this.title = title;
         this.content = content;
         this.password = password;
+        this.users = users;
+        this.viewCount = 0L;
     }
 
     public void update(PostUpdateRequestDto requestDto){
