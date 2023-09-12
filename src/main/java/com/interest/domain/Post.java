@@ -45,6 +45,7 @@ public class Post extends BaseEntity {
         validateTitleAndContent(requestDto.getTitle(), requestDto.getContent());
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+        this.lastModifiedAt = LocalDateTime.now();
     }
 
     private void validateTitleAndContent(String title, String content){

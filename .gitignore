@@ -1,0 +1,4 @@
+.gradle
+.idea
+# intelliJ compile 과정에 따른 class 파일들 저장 폴더
+build

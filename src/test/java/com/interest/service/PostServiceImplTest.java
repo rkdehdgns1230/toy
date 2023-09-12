@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,6 +67,7 @@ class PostServiceImplTest {
                 TEST_PASSWORD
         );
         Post post = postService.save(requestDto);
+        LocalDateTime currentLastModifiedAt = post.getLastModifiedAt();
 
         //when
         post.update(new PostUpdateRequestDto(
@@ -77,5 +80,6 @@ class PostServiceImplTest {
 
         //then
         assertThat(findPost.getTitle()).isEqualTo(UPDATE_TITLE);
+        assertThat(findPost.getLastModifiedAt()).isAfter(currentLastModifiedAt);
     }
 }
