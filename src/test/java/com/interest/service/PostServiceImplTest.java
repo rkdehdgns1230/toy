@@ -2,6 +2,7 @@ package com.interest.service;
 
 import com.interest.domain.Post;
 import com.interest.dto.PostCreateRequestDto;
+import com.interest.dto.PostCreateResult;
 import com.interest.dto.PostUpdateRequestDto;
 import com.interest.exception.CustomException;
 import org.assertj.core.api.Assertions;
@@ -35,12 +36,12 @@ class PostServiceImplTest {
         );
 
         //when
-        Post post = postService.save(requestDto);
+        PostCreateResult result = postService.save(requestDto);
 
         //then
-        assertThat(post.getTitle()).isEqualTo(TEST_TITLE);
-        assertThat(post.getContent()).isEqualTo(TEST_CONTENT);
-        assertThat(post.getPassword()).isEqualTo(TEST_PASSWORD);
+        assertThat(result.getTitle()).isEqualTo(TEST_TITLE);
+        assertThat(result.getContent()).isEqualTo(TEST_CONTENT);
+        assertThat(result.getPassword()).isEqualTo(TEST_PASSWORD);
     }
 
     @Test
@@ -66,11 +67,12 @@ class PostServiceImplTest {
                 TEST_CONTENT,
                 TEST_PASSWORD
         );
-        Post post = postService.save(requestDto);
+        PostCreateResult result = postService.save(requestDto);
+        Post post = postService.findById(result.getId());
         LocalDateTime currentLastModifiedAt = post.getLastModifiedAt();
 
         //when
-        post.update(new PostUpdateRequestDto(
+        postService.update(new PostUpdateRequestDto(
                 post.getId(),
                 UPDATE_TITLE,
                 requestDto.getContent(),

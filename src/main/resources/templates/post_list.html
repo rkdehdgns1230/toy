@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>게시판임다 어서옵쇼!</h1>
-<table>
+<table class="table">
     <thead>
     <tr>
         <th scope="col" class="text-center">제목</th>
@@ -19,15 +19,11 @@
     </tr>
     </thead>
     <tbody>
-        <%
-            if(list != null){
-                for(int i = 0; i < list.length; i++) {
-        %>
-        <tr>
-            <td style="width: 60%">
-
-            </td>
-            <td style="width: 10%" class="text-center"><%=list[i].getUser()%></td>
+        <tr th:each="post : ${postList}">
+            <td style="width: 60%" class="text-center" th:text="${post.title}"></td>
+            <td style="width: 10%" class="text-center" th:text="${post.user.userName}"></td>
+            <td style="width: 20%" class="text-center" th:text="${post.createdAt}"></td>
+            <td style="width: 10%" class="text-center" th:text="${post.viewCount}"></td>
         </tr>
     </tbody>
 </table>

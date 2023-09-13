@@ -2,6 +2,7 @@ package com.interest.service;
 
 import com.interest.domain.Post;
 import com.interest.dto.PostCreateRequestDto;
+import com.interest.dto.PostCreateResult;
 import com.interest.dto.PostUpdateRequestDto;
 import com.interest.exception.CustomException;
 import com.interest.exception.ExceptionMessage;
@@ -9,6 +10,8 @@ import com.interest.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -18,12 +21,19 @@ public class PostServiceImpl implements PostService{
 
     @Override
     @Transactional
-    public Post save(PostCreateRequestDto requestDto) { //TODO: ResponseDto로 반환하도록 변경
-        return postRepository.save(Post.builder()
+    public PostCreateResult save(PostCreateRequestDto requestDto) { //TODO: ResponseDto로 반환하도록 변경
+        Post post = postRepository.save(Post.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
                 .password(requestDto.getPassword())
                 .build());
+        return new PostCreateResult(
+                post.getId(),
+                post.getTitle(),
+                post.getContent(),
+                post.getPassword(),
+                post.getViewCount()
+        );
     }
 
     @Override
@@ -40,5 +50,10 @@ public class PostServiceImpl implements PostService{
         return postRepository.findById(id).orElseThrow(
                 () -> new CustomException(ExceptionMessage.POST_ID_INVALID)
         );
+    }
+
+    @Override
+    public List<Post> findAll() {
+        return postRepository.findAll();
     }
 }
