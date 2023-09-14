@@ -13,5 +13,4 @@ public class CommonResponseDto<T> {
         this.success = success;
         this.data = data;
     }
-
 }

@@ -2,6 +2,7 @@ package com.interest.service;
 
 import com.interest.domain.Users;
 import com.interest.dto.UsersCreateRequestDto;
+import com.interest.dto.UsersCreateResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,16 +23,16 @@ class UsersServiceImplTest {
     void users_생성_성공(){
         //given
         //when
-        Users users = usersService.save(new UsersCreateRequestDto(
+        UsersCreateResult result = usersService.save(new UsersCreateRequestDto(
                 TEST_EMAIL,
                 TEST_PASSWORD,
                 TEST_USERNAME
         ));
 
         //then
-        assertThat(users.getEmail()).isEqualTo(TEST_EMAIL);
-        assertThat(users.getPassword()).isEqualTo(TEST_PASSWORD);
-        assertThat(users.getUserName()).isEqualTo(TEST_USERNAME);
+        assertThat(result.getEmail()).isEqualTo(TEST_EMAIL);
+        assertThat(result.getPassword()).isEqualTo(TEST_PASSWORD);
+        assertThat(result.getUserName()).isEqualTo(TEST_USERNAME);
     }
 
 }

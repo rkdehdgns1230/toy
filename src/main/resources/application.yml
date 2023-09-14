@@ -6,6 +6,13 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
   h2:
     console:
       enabled: true
@@ -16,3 +23,18 @@ spring:
     url: jdbc:h2:tcp://localhost/~/toy
     username: sa
     password: 1234
+
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+  api-docs:
+    path: /api-docs
+  show-actuator: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  paths-to-match:
+    - /api/v1/**
