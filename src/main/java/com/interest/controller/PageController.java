@@ -20,4 +20,9 @@ public class PageController {
         model.addAttribute("postList", postList);
         return "post_list";
     }
+
+    @GetMapping("/post")
+    public String getWritePage(){
+        return "write";
+    }
 }

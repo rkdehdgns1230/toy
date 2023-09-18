@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- mobile 환경 최적화를 위한다고 함.. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <title>게시판</title>
+</head>
+<body>
+  <div class="m-3">
+    <!-- 제목, 작성자, 글 내용, 비밀번호 작성 란 구현 -->
+    <div class="mb-3">
+      <label for="exampleFormControlInput" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleFormControlInput" placeholder="name@example.com">
+    </div>
+    <div class="mb-3">
+      <label for="inputPassword" class="form-label">Password</label>
+      <input type="password" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock">
+      <div id="passwordHelpBlock" class="form-text">
+        Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea" class="form-label">What you wanna share</label>
+      <textarea class="form-control" id="exampleFormControlTextarea" rows="5"></textarea>
+    </div>
+
+  </div>
+</body>
+</html>
